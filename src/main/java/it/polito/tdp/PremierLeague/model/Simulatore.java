@@ -12,6 +12,7 @@ public class Simulatore {
 	private PriorityQueue<Evento> queue;
 	
 	private Graph<Player, DefaultWeightedEdge> grafo;
+	private int num;
 	private GiocatoreMigliore bestPlayer;
 	
 	private int N;
