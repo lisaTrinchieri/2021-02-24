@@ -3,11 +3,17 @@ package it.polito.tdp.PremierLeague.model;
 public class Player {
 	Integer playerID;
 	String name;
+	int team;
 	
-	public Player(Integer playerID, String name) {
+	double efficienza;
+	
+	public Player(Integer playerID, String name, int team) {
 		super();
 		this.playerID = playerID;
 		this.name = name;
+		this.team = team;
+		
+		this.efficienza =0.0;
 	}
 	
 	public Integer getPlayerID() {
@@ -23,6 +29,17 @@ public class Player {
 		this.name = name;
 	}
 
+	public int getTeam() {
+		return this.team;
+	}
+	
+	public double getEfficienza() {
+		return this.efficienza;
+	}
+	
+	public void setEfficienza(double eff) {
+		this.efficienza = eff;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -8,6 +8,7 @@ package it.polito.tdp.PremierLeague;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.PremierLeague.model.GiocatoreMigliore;
 import it.polito.tdp.PremierLeague.model.Match;
 import it.polito.tdp.PremierLeague.model.Model;
 import javafx.event.ActionEvent;
@@ -47,16 +48,48 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    	this.txtResult.clear();
+    	Match m = this.cmbMatch.getValue();
     	
+    	if(m== null)
+    	{ this.txtResult.appendText("Seleziona un match!");
+    	  return;
+    	}
+    	
+    	this.model.creaGrafo(m);
+    	txtResult.appendText("GRAFO CREATO\n");
+    	this.txtResult.appendText("# vertici: "+this.model.getnVertici()+"\n");
+    	this.txtResult.appendText("# archi: "+this.model.getNarchi()+"\n");
     }
 
     @FXML
-    void doGiocatoreMigliore(ActionEvent event) {    	
+    void doGiocatoreMigliore(ActionEvent event) {  
+    	
+    	this.txtResult.clear();
+    	
+    	if(this.model.getGrafo()==null)
+    	{ this.txtResult.appendText("Il grafo non è stato creato");
+  	      return;
+  	     }
+    	
+    	GiocatoreMigliore g = this.model.getMigliore();
+    	this.txtResult.appendText("Giocatore migliore : "+g.toString());
+    		
     	
     }
     
     @FXML
     void doSimula(ActionEvent event) {
+    	
+    	String num= this.txtN.getText();
+    	int n= Integer.parseInt(num);
+    	
+    	this.model.simula(n);
+    	
+    	this.txtResult.appendText("Espulsi t1: "+this.model.getEx1()+"\n");
+    	this.txtResult.appendText("Espulsi t2: "+this.model.getEx2()+"\n");
+    	this.txtResult.appendText("Gol t1: "+this.model.getGol1()+"\n");
+    	this.txtResult.appendText("Gol t1: "+this.model.getGol2()+"\n");
 
     }
 
@@ -73,5 +106,6 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	this.cmbMatch.getItems().addAll(this.model.getTuttimatch());
     }
 }
